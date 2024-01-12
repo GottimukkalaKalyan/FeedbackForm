@@ -1,40 +1,51 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
-
 import "./index.css";
 
 const SendMailer = () => {
   const [yourName, setyourName] = useState("");
   const [yourEmail, setyourEmail] = useState("");
   const [textArea, settextArea] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const ButtonText = isSubmitted ? "Sending Feedback..." : "Give Feedback";
+  const ButtonsClasses = isSubmitted
+    ? "send-button loading-button"
+    : "send-button";
 
   const sendMailButton = (event) => {
     event.preventDefault();
-    console.log(yourName, yourEmail, textArea);
+    if (yourEmail !== "" && yourName !== "" && textArea !== "") {
+      setIsSubmitted(true);
+      console.log(yourName, yourEmail, textArea);
 
-    const serviceId = "service_cnbu0ob";
-    const templateId = "template_by2s0dw";
-    const publicKey = "dsHx3H3tJBvuhNrZS";
+      const serviceId = "service_cnbu0ob";
+      const templateId = "template_by2s0dw";
+      const publicKey = "dsHx3H3tJBvuhNrZS";
 
-    const templateParams = {
-      from_name: yourName,
-      from_email: yourEmail,
-      to_name: "Kalyan",
-      message: textArea,
-    };
+      const templateParams = {
+        from_name: yourName,
+        from_email: yourEmail,
+        to_name: "Kalyan",
+        message: textArea,
+      };
 
-    emailjs.send(serviceId, templateId, templateParams, publicKey).then(
-      (result) => {
-        console.log("***********", result);
-        setyourName("");
-        setyourEmail("");
-        settextArea("");
-        alert("Mail sended Successfully");
-      },
-      (error) => {
-        console.log(error.text);
-      }
-    );
+      emailjs.send(serviceId, templateId, templateParams, publicKey).then(
+        (result) => {
+          console.log("***********", result);
+          setyourName("");
+          setyourEmail("");
+          settextArea("");
+          alert("Mail sended Successfully");
+          setIsSubmitted(false);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    } else {
+      alert("Please provide all required Details..");
+    }
   };
 
   const changeName = (event) => {
@@ -51,7 +62,17 @@ const SendMailer = () => {
 
   return (
     <div className="form-main-container">
-      <h1 className="heading">Send Mailer</h1>
+      <h1 className="heading">
+        Send Your Feedback to <br />
+        <a
+          href="https://kalyangottimukkalabio.vercel.app"
+          target="_blank"
+          rel="noreferrer"
+          className="span-name"
+        >
+          Kalyan Gottimukkala
+        </a>
+      </h1>
       <form className="form-card" onSubmit={sendMailButton}>
         <div className="input-field">
           <label htmlFor="nameField" className="label">
@@ -61,6 +82,7 @@ const SendMailer = () => {
             type="text"
             id="nameField"
             className="input"
+            placeholder="Your Name"
             value={yourName}
             onChange={changeName}
           />
@@ -74,6 +96,7 @@ const SendMailer = () => {
             id="emailField"
             className="input"
             value={yourEmail}
+            placeholder="Your Email"
             onChange={changeEmail}
           />
         </div>
@@ -85,12 +108,13 @@ const SendMailer = () => {
             rows={10}
             id="textareaField"
             className="text-area"
+            placeholder="Your Message"
             value={textArea}
             onChange={changeTextArea}
           />
         </div>
-        <button type="submit" className="send-button">
-          Send Mail
+        <button type="submit" className={ButtonsClasses} disabled={isSubmitted}>
+          {ButtonText}
         </button>
       </form>
     </div>
