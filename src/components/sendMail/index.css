@@ -1,0 +1,54 @@
+.form-main-container{
+   width: 100%;
+   max-width: 600px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.heading{
+   color: white;
+}
+.form-card{
+   background-color: aliceblue;
+   width: 100%;
+   max-width: 400px;
+   padding: 10px;
+   border-radius: 10px;
+}
+.label{
+   text-align: start;
+   font-weight: 600;
+   width: 100%;
+   margin-bottom: 7px;
+}
+.input-field{
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 10px;
+}
+.input{
+   height: 30px;
+   background-color: white;
+   border: 1px solid rgb(171, 171, 171);
+   outline: 1px solid rgb(138, 138, 212);
+   padding-left: 10px;
+   border-radius: 5px;
+}
+.text-area{
+   background-color: white;
+   border: 1px solid rgb(171, 171, 171);
+   outline: 1px solid rgb(138, 138, 212);
+   padding: 10px;
+   border-radius: 5px;
+}
+.send-button{
+   width: 100%;
+   padding: 7px;
+   background-color: rgb(17, 17, 73);
+   color: white;
+   font-weight: 600;
+   border: none;
+   outline: none;
+   border-radius: 5px;
+   margin-top: 10px;
+}
